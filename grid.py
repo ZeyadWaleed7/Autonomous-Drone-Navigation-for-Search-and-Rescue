@@ -36,7 +36,7 @@ def create_obstacle(grid, row, column):
 
 
 #tesssttt
-
+#for push only
 # row, column = 50, 50
 # grid = grid_init(row, column)
 

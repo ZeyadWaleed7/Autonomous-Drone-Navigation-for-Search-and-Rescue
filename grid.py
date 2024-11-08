@@ -78,13 +78,5 @@ def path_cost(grid, row, column):
                 node.cost = choice([1, 2])
     return grid
 
-# Example Usage
-row, column = 50, 50
-grid, start_position, goal_position = grid_init(row, column)
-grid = create_obstacle(grid, row, column)
-grid = path_cost(grid, row, column)
 
-# Testing: Check specific positions for attributes
-for position in [(0, 0), start_position, goal_position]:
-    node = grid[position]
-    print(f"Position {position}: Start={node.start}, Goal={node.goal}, Passable={node.passable}, Cost={node.cost}")
+

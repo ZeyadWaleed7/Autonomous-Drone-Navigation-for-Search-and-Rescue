@@ -1,4 +1,5 @@
-import heuristic_function
+from heuristic_function import heuristic_function
+from grid import grid_init, create_obstacle, path_cost
 def hill_climbing(grid, start_position, goal_position):
     
     current = grid[start_position]
@@ -37,3 +38,10 @@ def hill_climbing(grid, start_position, goal_position):
 
     print("Goal reached!")
     return path
+# Test 
+row, column = 50, 50
+grid, start_position, goal_position = grid_init(row, column)
+grid = create_obstacle(grid, row, column)
+grid = path_cost(grid, row, column)
+path = hill_climbing(grid, start_position, goal_position)
+print("Path taken:", path)

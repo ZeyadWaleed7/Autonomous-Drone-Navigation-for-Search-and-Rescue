@@ -5,10 +5,14 @@ def grid_init(row, column):
     for x in range(row):
         for y in range(column):
             position = (x, y)
-            grid[position] = {'position': position, 'passable': True, 'cost': 1, 'goal': False, 'start': False}
+            grid[position] = {'passable': True, 'cost': 1, 'goal': False, 'start': False}
 
-    grid[( randint(0, column - 1),  randint(0, row - 1))]['start'] = True
-    grid[( randint(0, column - 1),  randint(0, row - 1))]['goal'] = True
+# gaybha mn 3 el net lat5 ... 34an at2kd mn en el start w goal mo5tlfeen
+    start_position = (randint(0, row - 1), randint(0, column - 1))
+    while True:
+        goal_position = (randint(0, row - 1), randint(0, column - 1))
+        if goal_position != start_position:
+            break
 
     return grid
 

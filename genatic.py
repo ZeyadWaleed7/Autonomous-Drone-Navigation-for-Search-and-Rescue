@@ -82,10 +82,3 @@ def genetic_algorithm(grid, start_position, goal_position):
 
     print("No path found after", GENERATIONS, "generations")
     return None
-
-row, column = 50, 50
-grid, start_position, goal_position = grid_init(row, column)
-grid = create_obstacle(grid, row, column)
-grid = path_cost(grid, row, column)
-path = genetic_algorithm(grid, start_position, goal_position)
-print("Path", path)

@@ -80,5 +80,5 @@ def genetic_algorithm(grid, start_position, goal_position):
                 print("Goal reached!")
                 return path
 
-    print("No path found after", GENERATIONS, "generations")
-    return None
+    print("No paths found after", GENERATIONS, "generations")
+    return None 

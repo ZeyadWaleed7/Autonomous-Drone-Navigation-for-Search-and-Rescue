@@ -1,11 +1,11 @@
 from collections import deque
 
-def breadth_first_search(start_node):
+def depth_first_search(start_node):
     search_queue = deque([(start_node, [start_node.position])])
     visited_nodes = set()
 
     while search_queue:
-        current_node, current_path = search_queue.popleft()
+        current_node, current_path = search_queue.pop()
 
         if current_node in visited_nodes:
             continue

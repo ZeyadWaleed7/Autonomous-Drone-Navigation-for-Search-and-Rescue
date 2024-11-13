@@ -1,4 +1,7 @@
 from random import randint, choice
+
+
+
 class Node:
     def __init__(self, position, passable=True, cost=1):
         self.position = position
@@ -74,5 +77,8 @@ def path_cost(grid, row, column):
         for y in range(column):
             node = grid[(x, y)]
             if node.passable and node.cost != 0:
-                node.cost = choice([1, 2])
+                node.cost = choice([1, 2])    
     return grid
+
+
+

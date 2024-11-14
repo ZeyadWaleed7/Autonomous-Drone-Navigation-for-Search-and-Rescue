@@ -79,3 +79,6 @@ def path_cost(grid, row, column):
             if node.passable and node.cost != 0:
                 node.cost = choice([1, 2])    
     return grid
+
+
+

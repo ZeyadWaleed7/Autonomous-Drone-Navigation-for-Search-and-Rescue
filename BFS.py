@@ -1,25 +1,22 @@
 from collections import deque
 
-def breadth_first_search(start_node):
-    search_queue = deque([(start_node, [start_node.position])])
-    visited_nodes = set()
+def breadth_first_search(grid):
+    start_node = [node for node in grid.values() if node.start][0]
 
-    while search_queue:
-        current_node, current_path = search_queue.popleft()
+    queue = deque([start_node])
+    visited = {start_node.position}
 
-        if current_node in visited_nodes:
-            continue
-        visited_nodes.add(current_node)
+    while queue:
+        current_node = queue.popleft()
 
-        for child_node in current_node.children:
-            if not child_node.passable:
-                continue
+        # Check if we've reached the goal
+        if current_node.goal:
+            return True  # Path exists
 
-            path_to_child = current_path + [child_node.position]
+        # Visit all passable, unvisited neighbors
+        for neighbor in current_node.children:
+            if neighbor.position not in visited and neighbor.passable:
+                queue.append(neighbor)
+                visited.add(neighbor.position)
 
-            if child_node.goal:
-                return path_to_child, visited_nodes
-
-            search_queue.append((child_node, path_to_child))
-
-    return None
+    return False  # Path does not exist if the goal was not reached

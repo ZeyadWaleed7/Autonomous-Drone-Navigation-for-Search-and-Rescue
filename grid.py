@@ -1,4 +1,5 @@
 from random import randint, choice
+from BFS import breadth_first_search
 class Node:
     def __init__(self, position, passable=True, cost=1):
         self.position = position
@@ -59,11 +60,12 @@ def create_obstacle(grid, row, column):
             node.cost = 0
 
             # Placeholder for DFS path-checking
-            is_path_found = True  # Update this with actual DFS logic if needed
+            is_path_found = breadth_first_search(grid)
 
             if is_path_found:
                 obstacles_placed += 1
             else:
+                print("erooooong ")
                 node.passable = True
                 failed_attempts += 1
 
@@ -76,3 +78,23 @@ def path_cost(grid, row, column):
             if node.passable and node.cost != 0:
                 node.cost = choice([1, 2])
     return grid
+
+# Test case 2: Grid with a blocked path
+row, column = 5, 5
+grid, start_position, goal_position = grid_init(row, column)
+grid = path_cost(grid, row, column)
+
+# Place an obstacle at (2, 2)
+grid[(2, 2)].passable = False
+grid[(2, 2)].cost = 0
+
+# Perform DFS path checking (this should return False due to the obstacle)
+path_exists = breadth_first_search(grid)
+
+
+
+
+
+
+
+print(f"Path found (Single obstacle): {path_exists}")

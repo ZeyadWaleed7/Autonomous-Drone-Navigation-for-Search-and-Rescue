@@ -1,19 +1,17 @@
 from random import randint, choice
 
 
-
 class Node:
-    def __init__(self, position, passable=True, cost=1):
+    def __init__(self, position, cost=1):
         self.position = position
-        self.passable = passable
+        self.passable = True
         self.cost = cost
         self.children = []
         self.start = False
         self.goal = False
-
+        self.heuristic = None
     def __lt__(self, other):
-        # This compares nodes based on their cost value for priority queue usage
-        return self.cost < other.cost
+        return self.heuristic < other.heuristic
 
 
 def grid_init(row, column):
@@ -90,9 +88,7 @@ def path_cost(grid, row, column):
     for x in range(row):
         for y in range(column):
             node = grid[(x, y)]
-
             if node.passable and node.cost != 0:
                 node.cost = choice([1, 2])  # Assign random cost to each passable node
-
     return grid
 

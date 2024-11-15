@@ -53,9 +53,7 @@ def grid_init(row, column):
 
     # Set start and goal attributes for selected nodes
     grid[start_position].start = True
-    grid[start_position].cost = 0
     grid[goal_position].goal = True
-    grid[goal_position].cost = 0
 
     return grid, start_position, goal_position
 
@@ -70,9 +68,9 @@ def create_obstacle(grid, row, column):
         y = randint(0, column - 1)
         node = grid[(x, y)]
 
-        if not node.start and not node.goal and node.passable:
+        if node.passable and not (node.start and node.goal) :
             node.passable = False
-            node.cost = 0
+            node.cost = float('inf')
 
             # Placeholder for DFS path-checking (update this if DFS is implemented)
             # is_path_found = True  # Implement DFS or other pathfinding logic if needed
@@ -91,6 +89,6 @@ def path_cost(grid, row, column):
     for x in range(row):
         for y in range(column):
             node = grid[(x, y)]
-            if node.passable and node.cost != 0:
+            if node.passable and not (node.goal and  node.start):
                 node.cost = choice([1, 2])  # 1 = Highway, 2 = Narrow way
     return grid

@@ -2,7 +2,7 @@ import time
 import tracemalloc
 from A_Star import a_star
 from simulated_Annealing import simulated_annealing
-from GreedyBestFirstSearch import column
+from GreedyBestFirstSearch import column, greedy_best_search
 from grid import grid_init, create_obstacle, path_cost
 import numpy as np
 import matplotlib.pyplot as plt

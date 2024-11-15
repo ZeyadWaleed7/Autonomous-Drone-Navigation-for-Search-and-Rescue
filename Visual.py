@@ -1,5 +1,8 @@
 from heuristic_function import heuristic_function  # Import the specific function
 from simulated_Annealing import simulated_annealing
+from hill_climbing import hill_climbing
+from A_Star import a_star
+from genatic import genetic_algorithm
 from grid import grid_init, create_obstacle, path_cost, reconstruct_path
 import time
 import tracemalloc
@@ -59,7 +62,7 @@ grid = create_obstacle(grid, rows, cols)
 grid = path_cost(grid,rows,cols)
 start_time = time.time()
 tracemalloc.start()
-path = simulated_annealing(grid, start, goal,1000,0.99,1000)
+path = genetic_algorithm(grid, start, goal,100,200,150,0.2)
 print(path)
 _ = path  # Suppress display of the returned value
 end_time = time.time()

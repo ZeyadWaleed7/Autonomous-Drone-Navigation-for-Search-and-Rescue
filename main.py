@@ -1,4 +1,5 @@
 from A_Star import a_star
+from hill_climbing import hill_climbing
 from GreedyBestFirstSearch import column
 from grid import grid_init, create_obstacle, path_cost
 import numpy as np

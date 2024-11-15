@@ -23,7 +23,7 @@ def simulated_annealing(grid, start_position, goal_position, initial_temp, cooli
 
         if not neighbors:
             print("No path found")
-            return grid.reconstruct_path(path,start_position,goal_position)
+            return path
         
         # Randomly select a passable neighbor
         next_position = choice(neighbors).position
@@ -41,7 +41,7 @@ def simulated_annealing(grid, start_position, goal_position, initial_temp, cooli
             # Check if goal is reached
             if current_position == goal_position:
                 print("Goal reached!")
-                return grid.reconstruct_path(path,start_position,goal_position)
+                return path
 
         # Cool down temperature
         temperature *= cooling_rate
@@ -51,6 +51,4 @@ def simulated_annealing(grid, start_position, goal_position, initial_temp, cooli
             break
 
     print("Couldn't find a complete path.")
-    return grid.reconstruct_path(path,start_position,goal_position)
-
-
+    return path

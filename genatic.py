@@ -1,84 +1,139 @@
-import numpy as np
-import random
+from random import randint, random, choice, sample
 from heuristic_function import heuristic_function
 from grid import grid_init, create_obstacle, path_cost
 
-POPULATION_SIZE = 10
-MUTATION_RATE = 0.1
-CROSSOVER_RATE = 0.7
-GENERATIONS = 50
-GENOME_LENGTH = 100
-
-def initialize_population(grid, start_position):
+def initialize_population(grid, start_position, goal_position, population_size, max_path_length):
     population = []
+    count = 0
 
-    for i in range(POPULATION_SIZE):
+    while count < population_size:
         path = [start_position]
+        current_position = start_position
 
-        for j in range(GENOME_LENGTH):
-            move = random.choice([(0, 1), (1, 0), (0, -1), (-1, 0)])
+        while len(path) < max_path_length:
+            current_node = grid[current_position]
+            neighbors = []
+            for neighbor in current_node.children:
+                if neighbor.passable:
+                    neighbors.append(neighbor.position)
 
-            current_row, current_col = path[-1]
-            next_row = current_row + move[0]
-            next_col = current_col + move[1]
-            next_position = (next_row, next_col)
+            if not neighbors:
+                break
 
-            if 0 <= next_position[0] < len(grid) and 0 <= next_position[1] < len(grid[0]):
-                if grid[next_position].passable:
-                    path.append(next_position)
+            next_position = choice(neighbors)
+            path.append(next_position)
+            current_position = next_position
+
+            if current_position == goal_position:
+                break
 
         population.append(path)
+        count += 1
+
     return population
 
-def calculate_fitness(path, goal_position):
-    last_position = path[-1]
-    return heuristic_function(last_position, goal_position) 
 
-def select_best_paths(population, goal_position):
-    return sorted(population, key=lambda path: calculate_fitness(path, goal_position))
+def fitness_function(path, goal_position):
+    last_position = path[-1]
+    distance_to_goal = heuristic_function(last_position, goal_position)
+
+    return -distance_to_goal - len(path) * 0.1
+
 
 def crossover(parent1, parent2):
-    crossover_point = random.randint(0, min(len(parent1), len(parent2)) - 1)
-    child = parent1[:crossover_point] + parent2[crossover_point:]
+    crossover_point = randint(1, min(len(parent1), len(parent2)) - 1)
+    child = parent1[:crossover_point]
+
+    for i in parent2:
+        if i not in child:
+            child.append(i)
+
     return child
 
-def mutate(path, grid):
-    if random.random() < MUTATION_RATE:
 
-        index = random.randint(0, len(path) - 1)
-        move = random.choice([(0, 1), (1, 0), (0, -1), (-1, 0)])
-        next_position = (path[index][0] + move[0], path[index][1] + move[1])
+def mutate(path, grid, mutation_rate):
+    if random() < mutation_rate:
+        mutation_index = randint(0, len(path) - 1)
+        current_node = grid[path[mutation_index]]
+        for neighbor in current_node.children:
+                if neighbor.passable:
+                    neighbors.append(neighbor.position)
 
-        if 0 <= next_position[0] < len(grid) and 0 <= next_position[1] < len(grid[0]) and grid[next_position].passable:
-            path[index] = next_position
+        if neighbors:
+            path[mutation_index] = choice(neighbors)
 
     return path
 
-def genetic_algorithm(grid, start_position, goal_position):
 
-    population = initialize_population(grid, start_position)
+def genetic_algorithm(grid, start_position, goal_position, population_size, generations, max_path_length, mutation_rate):
+    population = initialize_population(grid, start_position, goal_position, population_size, max_path_length)
 
-    for generation in range(GENERATIONS):
-        population = select_best_paths(population, goal_position)
-        new_population = []
+    generation = 0
+    best_path = None
+    best_score = float('-inf')
 
-        while len(new_population) < POPULATION_SIZE:
-            parent1, parent2 = random.sample(population, 2)
-
-            if random.random() < CROSSOVER_RATE:
-                child = crossover(parent1, parent2)
-            else:
-                child = random.choice([parent1, parent2])
-
-            child = mutate(child, grid)
-            new_population.append(child)
-
-        population = new_population
-
+    while generation < generations:
+        fitness_scores = []
         for path in population:
-            if path[-1] == goal_position:
-                print("Goal reached!")
-                return path
+            fitness_scores.append((path, fitness_function(path, goal_position)))
 
-    print("No path found after", GENERATIONS, "generations")
-    return None
+        fitness_scores.sort(key=lambda x: x[1], reverse=True)
+
+        current_best_path, current_best_score = fitness_scores[0]
+        if current_best_score > best_score:
+            best_path = current_best_path
+            best_score = current_best_score
+
+        if best_path[-1] == goal_position:
+            break
+
+        top_individuals = []
+        count = 0
+        while count < population_size // 2:
+            top_individuals.append(fitness_scores[count][0])
+            count += 1
+
+        next_generation = []
+        count = 0
+        while count < population_size:
+            parent1 = choice(top_individuals)
+            parent2 = choice(top_individuals)
+            child = crossover(parent1, parent2)
+            child = mutate(child, grid, mutation_rate)
+            next_generation.append(child)
+            count += 1
+
+        population = next_generation
+        generation += 1
+
+    if best_path and best_path[-1] == goal_position:
+        print("Goal reached!")
+    else:
+        print("Couldn't find a complete path.")
+
+    return best_path
+
+
+# Test
+if __name__ == "__main__":
+    row, column = 50, 50
+    grid, start_position, goal_position = grid_init(row, column)
+    grid = create_obstacle(grid, row, column)
+    grid = path_cost(grid, row, column)
+
+    print(f"Start position: {start_position}, Goal position: {goal_position}")
+
+    path = genetic_algorithm(
+        grid,
+        start_position,
+        goal_position,
+        population_size=100,  
+        generations=200,      
+        max_path_length=150,  
+        mutation_rate=0.2     
+    )
+
+    if path:
+        print("Path taken is", path)
+    else:
+        print("No valid path found")

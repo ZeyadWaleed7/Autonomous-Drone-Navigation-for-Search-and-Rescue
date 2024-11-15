@@ -55,6 +55,7 @@ def mutate(path, grid, mutation_rate):
     if random() < mutation_rate:
         mutation_index = randint(0, len(path) - 1)
         current_node = grid[path[mutation_index]]
+        neighbors = []
         for neighbor in current_node.children:
                 if neighbor.passable:
                     neighbors.append(neighbor.position)
@@ -68,7 +69,7 @@ def mutate(path, grid, mutation_rate):
 def genetic_algorithm(grid, start_position, goal_position, population_size, generations, max_path_length, mutation_rate):
     population = initialize_population(grid, start_position, goal_position, population_size, max_path_length)
 
-    generation = 0
+    generation = 0 
     best_path = None
     best_score = float('-inf')
 
@@ -109,7 +110,7 @@ def genetic_algorithm(grid, start_position, goal_position, population_size, gene
     if best_path and best_path[-1] == goal_position:
         print("Goal reached!")
     else:
-        print("Couldn't find a complete path.")
+        print("Couldn't find a path")
 
     return best_path
 

@@ -1,4 +1,7 @@
+import time
+import tracemalloc
 from A_Star import a_star
+from simulated_Annealing import simulated_annealing
 from GreedyBestFirstSearch import column
 from grid import grid_init, create_obstacle, path_cost
 import numpy as np
@@ -54,12 +57,16 @@ def main():
 
     grid = create_obstacle(grid, rows, cols)
     grid = path_cost(grid,rows,cols)
-
-    path = a_star(grid, start, goal)
-
+    start_time = time.time()
+    tracemalloc.start()
+    path = simulated_annealing(grid, start, goal,1000,0.99,1000)
+    end_time = time.time()
+    current, peak = tracemalloc.get_traced_memory()
+    print(f"Execution Time: {end_time - start_time} seconds")
+    print(f"Current memory usage: {current / 10**6} MB")
+    print(f"Peak memory usage: {peak / 10**6} MB")
     if path:
         visualize_path(grid, path, start, goal)
-
-
+        
 if __name__ == "__main__":
     main()

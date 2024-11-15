@@ -2,6 +2,14 @@ from random import randint, choice
 
 from BFS import breadth_first_search
 
+def reconstruct_path(path, start, goal):
+    current = goal
+    result_path = []
+    while current is not None:
+        result_path.append(current)
+        current = path[current]
+    result_path.reverse()
+    return result_path
 
 class Node:
     def __init__(self, position, cost=1):

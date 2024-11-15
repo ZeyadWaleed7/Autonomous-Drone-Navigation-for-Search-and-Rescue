@@ -1,5 +1,5 @@
 from heuristic_function import heuristic_function  # Import the specific function
-from grid import grid_init, create_obstacle, path_cost
+from grid import grid_init, create_obstacle, path_cost, reconstruct_path
 from random import randint, choice, uniform
 import math
 
@@ -52,5 +52,3 @@ def simulated_annealing(grid, start_position, goal_position, initial_temp, cooli
 
     print("Couldn't find a complete path.")
     return path
-
-

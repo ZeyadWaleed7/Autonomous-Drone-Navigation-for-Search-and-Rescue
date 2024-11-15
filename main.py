@@ -57,6 +57,16 @@ def main():
 
     grid = create_obstacle(grid, rows, cols)
     grid = path_cost(grid,rows,cols)
+
+    a_star_path = a_star(grid, start, goal)
+    print(a_star_path)
+    visualize_path(grid, a_star_path, start, goal)
+
+    greedy_path = greedy_best_search(grid,start, goal)
+    print(greedy_path)
+    visualize_path(grid , greedy_path ,start,goal)
+
+
     start_time = time.time()
     tracemalloc.start()
     path = simulated_annealing(grid, start, goal,1000,0.99,1000)

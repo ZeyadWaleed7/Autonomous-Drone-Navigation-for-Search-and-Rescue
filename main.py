@@ -63,7 +63,6 @@ def main():
     end_time = time.time()
     current, peak = tracemalloc.get_traced_memory()
     print(f"Execution Time: {end_time - start_time} seconds")
-    print(f"Current memory usage: {current / 10**6} MB")
     print(f"Peak memory usage: {peak / 10**6} MB")
     if path:
         visualize_path(grid, path, start, goal)

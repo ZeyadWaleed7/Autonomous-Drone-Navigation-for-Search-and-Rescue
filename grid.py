@@ -42,7 +42,11 @@ def grid_init(row, column):
                     (x, y - 1),  # up
                     (x, y + 1),  # down
                     (x - 1, y),  # left
-                    (x + 1, y)  # right
+                    (x + 1, y),  # right
+                    (x - 1, y - 1),  # top-left
+                    (x - 1, y + 1),  # top-right
+                    (x + 1, y - 1),  # bottom-left
+                    (x + 1, y + 1)  # bottom-right
                 ]
 
                 for x_limit, y_limit in neighbors:

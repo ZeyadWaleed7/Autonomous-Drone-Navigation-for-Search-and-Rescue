@@ -1,5 +1,5 @@
-import heuristic_function
-import grid
+from heuristic_function import heuristic_function 
+from grid import grid_init, create_obstacle, path_cost, reconstruct_path
 def hill_climbing(grid, start_position, goal_position):
     
     current = grid[start_position]
@@ -17,7 +17,7 @@ def hill_climbing(grid, start_position, goal_position):
         if not neighbors:
             # If there are no passable neighbors then there is no path
             print("No path found!")
-            return grid.reconstruct_path(path,start_position,goal_position)
+            return path
 
         # Iterate to find the the neighbor with the lowest heueristic value (Manhattan distance) to the goal
         next_node = neighbors[0]
@@ -30,11 +30,11 @@ def hill_climbing(grid, start_position, goal_position):
             # if there is no neighbor with a lower heuristic value then wwe have reached a local maxima
             print("Reached a local maximum.")
             print(goal_node.position)
-            return grid.reconstruct_path(path,start_position,goal_position)
+            return path
 
         # Move to the selected neighbor
         current = next_node
         path.append(current.position)
 
     print("Goal reached!")
-    return grid.reconstruct_path(path,start_position,goal_position)
+    return path

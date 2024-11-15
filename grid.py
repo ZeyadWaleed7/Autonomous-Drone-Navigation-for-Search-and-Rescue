@@ -1,5 +1,7 @@
 from random import randint, choice
 
+from BFS import breadth_first_search
+
 
 class Node:
     def __init__(self, position, cost=1):
@@ -73,7 +75,8 @@ def create_obstacle(grid, row, column):
             node.cost = 0
 
             # Placeholder for DFS path-checking (update this if DFS is implemented)
-            is_path_found = True  # Implement DFS or other pathfinding logic if needed
+            # is_path_found = True  # Implement DFS or other pathfinding logic if needed
+            is_path_found = breadth_first_search(grid)
 
             if is_path_found:
                 obstacles_placed += 1
@@ -91,4 +94,3 @@ def path_cost(grid, row, column):
             if node.passable and node.cost != 0:
                 node.cost = choice([1, 2])  # 1 = Highway, 2 = Narrow way
     return grid
-

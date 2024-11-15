@@ -12,7 +12,10 @@ def initialize_population(grid, start_position, goal_position, population_size, 
 
         while len(path) < max_path_length:
             current_node = grid[current_position]
-            neighbors = [neighbor.position for neighbor in current_node.children if neighbor.passable]
+            neighbors = []
+            for neighbor in current_node.children:
+                if neighbor.passable:
+                    neighbors.append(neighbor.position)
 
             if not neighbors:
                 break
@@ -38,12 +41,12 @@ def fitness_function(path, goal_position):
 
 
 def crossover(parent1, parent2):
-    split_point = randint(1, min(len(parent1), len(parent2)) - 1)
-    child = parent1[:split_point]
+    crossover_point = randint(1, min(len(parent1), len(parent2)) - 1)
+    child = parent1[:crossover_point]
 
-    for node in parent2:
-        if node not in child:
-            child.append(node)
+    for i in parent2:
+        if i not in child:
+            child.append(i)
 
     return child
 
@@ -52,7 +55,9 @@ def mutate(path, grid, mutation_rate):
     if random() < mutation_rate:
         mutation_index = randint(0, len(path) - 1)
         current_node = grid[path[mutation_index]]
-        neighbors = [neighbor.position for neighbor in current_node.children if neighbor.passable]
+        for neighbor in current_node.children:
+                if neighbor.passable:
+                    neighbors.append(neighbor.position)
 
         if neighbors:
             path[mutation_index] = choice(neighbors)

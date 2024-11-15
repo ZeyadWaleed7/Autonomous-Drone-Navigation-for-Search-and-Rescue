@@ -89,6 +89,6 @@ def path_cost(grid, row, column):
         for y in range(column):
             node = grid[(x, y)]
             if node.passable and node.cost != 0:
-                node.cost = choice([1, 2])  # Assign random cost to each passable node
+                node.cost = choice([1, 2])  # 1 = Highway, 2 = Narrow way
     return grid
 

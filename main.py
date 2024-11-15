@@ -1,5 +1,5 @@
 from A_Star import a_star
-from GreedyBestFirstSearch import column
+from GreedyBestFirstSearch import column, greedy_best_search
 from grid import grid_init, create_obstacle, path_cost
 import numpy as np
 import matplotlib.pyplot as plt
@@ -55,10 +55,14 @@ def main():
     grid = create_obstacle(grid, rows, cols)
     grid = path_cost(grid,rows,cols)
 
-    path = a_star(grid, start, goal)
+    a_star_path = a_star(grid, start, goal)
+    print(a_star_path)
+    visualize_path(grid, a_star_path, start, goal)
 
-    if path:
-        visualize_path(grid, path, start, goal)
+    greedy_path = greedy_best_search(grid,start, goal)
+    print(greedy_path)
+    visualize_path(grid , greedy_path ,start,goal)
+
 
 
 if __name__ == "__main__":

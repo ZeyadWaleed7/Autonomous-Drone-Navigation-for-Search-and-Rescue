@@ -36,7 +36,6 @@ def initialize_population(grid, start_position, goal_position, population_size, 
 def fitness_function(path, goal_position):
     last_position = path[-1]
     distance_to_goal = heuristic_function(last_position, goal_position)
-
     return -distance_to_goal - len(path) * 0.1
 
 
@@ -46,8 +45,8 @@ def crossover(parent1, parent2):
 
     for i in parent2:
         if i not in child:
-            child.append(i)
-
+            child.append(i) # Add unique parts of the 2nd parent to this child
+                     
     return child
 
 
@@ -56,10 +55,10 @@ def mutate(path, grid, mutation_rate):
         mutation_index = randint(0, len(path) - 1)
         current_node = grid[path[mutation_index]]
         neighbors = []
+
         for neighbor in current_node.children:
                 if neighbor.passable:
                     neighbors.append(neighbor.position)
-
         if neighbors:
             path[mutation_index] = choice(neighbors)
 
@@ -108,9 +107,9 @@ def genetic_algorithm(grid, start_position, goal_position, population_size, gene
         generation += 1
 
     if best_path and best_path[-1] == goal_position:
-        print("Goal reached!")
+        print("Goal reached")
     else:
-        print("Couldn't find a path")
+        print("Couldn't find path")
 
     return best_path
 
@@ -122,17 +121,9 @@ if __name__ == "__main__":
     grid = create_obstacle(grid, row, column)
     grid = path_cost(grid, row, column)
 
-    print(f"Start position: {start_position}, Goal position: {goal_position}")
+    print(f"Start: {start_position}, Goal: {goal_position}")
 
-    path = genetic_algorithm(
-        grid,
-        start_position,
-        goal_position,
-        population_size=100,  
-        generations=200,      
-        max_path_length=150,  
-        mutation_rate=0.2     
-    )
+    path = genetic_algorithm(grid,start_position,goal_position,population_size = 100,generations=200,max_path_length=150,mutation_rate=0.2)
 
     if path:
         print("Path taken is", path)

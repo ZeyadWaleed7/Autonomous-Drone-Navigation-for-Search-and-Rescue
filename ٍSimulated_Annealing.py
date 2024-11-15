@@ -1,5 +1,5 @@
 from heuristic_function import heuristic_function  # Import the specific function
-from grid import grid_init, create_obstacle, path_cost
+from grid import grid_init, create_obstacle, path_cost, reconstruct_path
 from random import randint, choice, uniform
 import math
 
@@ -23,7 +23,7 @@ def simulated_annealing(grid, start_position, goal_position, initial_temp, cooli
 
         if not neighbors:
             print("No path found")
-            return path
+            return grid.reconstruct_path(path,start_position,goal_position)
         
         # Randomly select a passable neighbor
         next_position = choice(neighbors).position
@@ -41,7 +41,7 @@ def simulated_annealing(grid, start_position, goal_position, initial_temp, cooli
             # Check if goal is reached
             if current_position == goal_position:
                 print("Goal reached!")
-                return path
+                return grid.reconstruct_path(path,start_position,goal_position)
 
         # Cool down temperature
         temperature *= cooling_rate
@@ -51,6 +51,6 @@ def simulated_annealing(grid, start_position, goal_position, initial_temp, cooli
             break
 
     print("Couldn't find a complete path.")
-    return path
+    return grid.reconstruct_path(path,start_position,goal_position)
 
 

@@ -3,9 +3,12 @@ import tracemalloc
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
-
+from hill_climbing import hill_climbing
 from A_Star import a_star
 from BFS import breadth_first_search
+from DFS import depth_first_search
+from UCS import uniform_cost_search
+from IDS import iterative_deepening_search
 from GreedyBestFirstSearch import greedy_best_search
 from grid import path_cost, create_obstacle, grid_init
 from simulated_Annealing import simulated_annealing
@@ -64,6 +67,55 @@ grid = path_cost(grid, rows, cols)
 
 
 
+#BFS
+bfs_start_time = time.time()
+tracemalloc.start()
+bfs_end_time = time.time()
+bfs_current, bfs_peak = tracemalloc.get_traced_memory()
+bfs = breadth_first_search(grid)
+print("BFS Path : ",bfs)
+print(f"BFS Execution Time: {bfs_end_time - bfs_start_time} seconds")
+print(f"BFS Peak memory usage: {bfs_peak / 10 ** 6} MB")
+visualize_path(grid, bfs, start, goal, "Breadth First")
+
+#DFS
+dfs_start_time = time.time()
+tracemalloc.start()
+dfs_end_time = time.time()
+dfs_current, dfs_peak = tracemalloc.get_traced_memory()
+dfs = depth_first_search(grid)
+print("DFS Path : ",dfs)
+print(f"DFS Execution Time: {dfs_end_time - dfs_start_time} seconds")
+print(f"DFS Peak memory usage: {dfs_peak / 10 ** 6} MB")
+visualize_path(grid, dfs, start, goal, "Depth First")
+
+
+
+#UCS
+ucs_start_time = time.time()
+tracemalloc.start()
+ucs_end_time = time.time()
+ucs_current, ucs_peak = tracemalloc.get_traced_memory()
+ucs,cost = uniform_cost_search(grid,start,goal)
+print("UCS Path : ",ucs)
+print(f"UCS Execution Time: {ucs_end_time - ucs_start_time} seconds")
+print(f"UCS Peak memory usage: {ucs_peak / 10 ** 6} MB")
+visualize_path(grid, ucs, start, goal, "Uniform Cost")
+
+
+#IDS
+ids_start_time = time.time()
+tracemalloc.start()
+ids_end_time = time.time()
+ids_current, ids_peak = tracemalloc.get_traced_memory()
+ids = iterative_deepening_search(grid)
+print("IDS Path : ",ids)
+print(f"IDS Execution Time: {ids_end_time - ids_start_time} seconds")
+print(f"IDS Peak memory usage: {ids_peak / 10 ** 6} MB")
+visualize_path(grid, ids, start, goal, "Iterative Deepening")
+
+
+
 #A*
 a_star_start_time = time.time()
 tracemalloc.start()
@@ -88,18 +140,6 @@ print(f"Greedy Peak memory usage: {greedy_peak / 10 ** 6} MB")
 visualize_path(grid, greedy_path, start, goal, "Greedy Best First")
 
 
-#BFS
-bfs_start_time = time.time()
-tracemalloc.start()
-bfs_end_time = time.time()
-bfs_current, bfs_peak = tracemalloc.get_traced_memory()
-bfs = breadth_first_search(grid)
-print("BFS Path : ",bfs)
-print(f"BFS Execution Time: {bfs_end_time - bfs_start_time} seconds")
-print(f"BFS Peak memory usage: {bfs_peak / 10 ** 6} MB")
-visualize_path(grid, bfs, start, goal, "Breadth First")
-
-
 #Simulated Annealing
 start_time = time.time()
 tracemalloc.start()
@@ -119,3 +159,15 @@ current, peak = tracemalloc.get_traced_memory()
 print(f"Genatic Execution Time: {end_time - start_time} seconds")
 print(f"Genatic memory usage: {peak / 10 ** 6} MB")
 visualize_path(grid, path, start, goal, "Genatic")
+
+
+#Hill Climbing
+Hill_Climbing_start_time = time.time()
+tracemalloc.start()
+Hill_Climbing_end_time = time.time()
+Hill_Climbing_current, Hill_Climbing_peak = tracemalloc.get_traced_memory()
+Hill_Climbing = hill_climbing(grid, start, goal)
+print("Hill Climbing Path : ",Hill_Climbing)
+print(f"Hill Climbing Execution Time: {Hill_Climbing_end_time - Hill_Climbing_start_time} seconds")
+print(f"Hill Climbing Peak memory usage: {Hill_Climbing_peak / 10 ** 6} MB")
+visualize_path(grid, Hill_Climbing, start, goal, "Hill Climbing")

@@ -2,7 +2,7 @@ from collections import deque
 from Reconstruct_path import rec_path
 
 
-def breadth_first_search(grid):
+def depth_first_search(grid):
     start_node = [node for node in grid.values() if node.start][0]
 
     queue = deque([start_node])

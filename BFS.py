@@ -14,8 +14,7 @@ def breadth_first_search(grid):
 
         # Check if we've reached the goal
         if current_node.goal:
-            return reconstruct_path(path, start_node.position, current_node.position)
-
+            return path.__reversed__()
         # Visit all passable, unvisited neighbors
         for neighbor in current_node.children:
             if neighbor.passable and neighbor.position not in visited:

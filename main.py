@@ -38,6 +38,7 @@ def visualize_path(grid, path, start, goal,title):
     bounds = [0, 1, 2, 3, 4, 5, 6]  # Ensure this matches the grid values used
     norm = BoundaryNorm(bounds, cmap.N)
 
+
     # Plot the grid
     plt.imshow(grid_array, cmap=cmap, norm=norm)
     cbar = plt.colorbar(

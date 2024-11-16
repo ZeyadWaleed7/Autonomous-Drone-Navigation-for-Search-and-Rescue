@@ -151,14 +151,14 @@ print(f"Simulated Annealing Peak memory usage: {peak / 10 ** 6} MB")
 visualize_path(grid, path, start, goal, "Simulated Annealing")
 
 #Genatic
-start_time = time.time()
+gen_start_time = time.time()
 tracemalloc.start()
-path = genetic_algorithm(grid, start, goal, population_size = 100,generations=200,max_path_length=150,mutation_rate=0.2)
-end_time = time.time()
-current, peak = tracemalloc.get_traced_memory()
-print(f"Genatic Execution Time: {end_time - start_time} seconds")
-print(f"Genatic memory usage: {peak / 10 ** 6} MB")
-visualize_path(grid, path, start, goal, "Genatic")
+gen_path = genetic_algorithm(grid, start, goal, population_size = 100,generations=200,max_path_length=150,mutation_rate=0.2)
+gen_end_time = time.time()
+gen_current, gen_peak = tracemalloc.get_traced_memory()
+print(f"Genetic Execution Time: {gen_end_time - gen_start_time} seconds")
+print(f"Genetic memory usage: {gen_peak / 10 ** 6} MB")
+visualize_path(grid, gen_path, start, goal, "Genetic")
 
 
 #Hill Climbing

@@ -19,7 +19,7 @@ def uniform_cost_search(grid, start_position, goal_position):
 
         # If the goal is reached, reconstruct the path
         if current_node.goal:
-            return rec_path(path,current_node), current_cost
+            return reconstruct_path(path,start_position,goal_position), current_cost
 
 
         # Explore neighbors

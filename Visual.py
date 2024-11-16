@@ -1,15 +1,18 @@
+from heuristic_function import heuristic_function  # Import the specific function
+from simulated_Annealing import simulated_annealing
+from hill_climbing import hill_climbing
+from A_Star import a_star
+from genatic import genetic_algorithm
+from grid import grid_init, create_obstacle, path_cost, reconstruct_path
 import time
 import tracemalloc
-from A_Star import a_star
-from simulated_Annealing import simulated_annealing
-
-from GreedyBestFirstSearch import greedy_best_search
-from grid import grid_init, create_obstacle, path_cost
+import math
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
 
-def visualize_path(grid, path, start, goal,title):
+
+def visualize_path(grid, path, start, goal):
     # Determine grid dimensions
     max_row = max(key[0] for key in grid) + 1
     max_col = max(key[1] for key in grid) + 1
@@ -44,39 +47,27 @@ def visualize_path(grid, path, start, goal,title):
         ticks=[0.5, 1.5, 2.5, 3.5, 4.5, 5.5],
         format=plt.FuncFormatter(lambda val, loc: ['Highway', 'Narrow Way', 'Obstacle', 'Path', 'Start', 'Goal'][int(val)])
     )
-    plt.title(title)
+    plt.title("Path Visualization")
     plt.show()
 
 
-def main():
-    # Define grid dimensions
-    rows, cols = 50, 50
+
+rows, cols = 50, 50
 
 
-    grid, start, goal = grid_init(rows, cols)
+grid, start, goal = grid_init(rows, cols)
 
 
-    grid = create_obstacle(grid, rows, cols)
-    grid = path_cost(grid,rows,cols)
-
-    a_star_path = a_star(grid, start, goal)
-    print(a_star_path)
-    visualize_path(grid, a_star_path, start, goal,"A Star")
-
-    greedy_path = greedy_best_search(grid,start, goal)
-    print(greedy_path)
-    visualize_path(grid , greedy_path ,start,goal,"Greedy Best First")
-
-
-    start_time = time.time()
-    tracemalloc.start()
-    path = simulated_annealing(grid, start, goal,1000,0.99,1000)
-    end_time = time.time()
-    current, peak = tracemalloc.get_traced_memory()
-    print(f"Execution Time: {end_time - start_time} seconds")
-    print(f"Peak memory usage: {peak / 10**6} MB")
-    if path:
-        visualize_path(grid, path, start, goal,"Simulated Annealing")
-        
-if __name__ == "__main__":
-    main()
+grid = create_obstacle(grid, rows, cols)
+grid = path_cost(grid,rows,cols)
+start_time = time.time()
+tracemalloc.start()
+path = genetic_algorithm(grid, start, goal,100,200,150,0.2)
+print(path)
+_ = path  # Suppress display of the returned value
+end_time = time.time()
+current, peak = tracemalloc.get_traced_memory()
+print(f"Execution Time: {end_time - start_time} seconds")
+print(f"Peak memory usage: {peak / 10**6} MB")
+if path:
+    visualize_path(grid, path, start, goal)

@@ -29,7 +29,6 @@ def hill_climbing(grid, start_position, goal_position):
         if heuristic_function(next_node.position, goal_node.position) >= heuristic_function(current.position, goal_node.position):
             # if there is no neighbor with a lower heuristic value then wwe have reached a local maxima
             print("Reached a local maximum.")
-            print(goal_node.position)
             return path
 
         # Move to the selected neighbor

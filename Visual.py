@@ -3,7 +3,7 @@ import tracemalloc
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
-
+from hill_climbing import hill_climbing
 from A_Star import a_star
 from BFS import breadth_first_search
 from DFS import depth_first_search
@@ -148,3 +148,15 @@ current, peak = tracemalloc.get_traced_memory()
 print(f"Simulated Annealing Execution Time: {end_time - start_time} seconds")
 print(f"Simulated Annealing Peak memory usage: {peak / 10 ** 6} MB")
 visualize_path(grid, path, start, goal, "Simulated Annealing")
+
+
+#Hill Climbing
+Hill_Climbing_start_time = time.time()
+tracemalloc.start()
+Hill_Climbing_end_time = time.time()
+Hill_Climbing_current, Hill_Climbing_peak = tracemalloc.get_traced_memory()
+Hill_Climbing = hill_climbing(grid, start, goal)
+print("Hill Climbing Path : ",Hill_Climbing)
+print(f"Hill Climbing Execution Time: {Hill_Climbing_end_time - Hill_Climbing_start_time} seconds")
+print(f"Hill Climbing Peak memory usage: {Hill_Climbing_peak / 10 ** 6} MB")
+visualize_path(grid, Hill_Climbing, start, goal, "Hill Climbing")

@@ -61,25 +61,50 @@ grid, start, goal = grid_init(rows, cols)
 grid = create_obstacle(grid, rows, cols)
 grid = path_cost(grid, rows, cols)
 
+
+
+#A*
+a_star_start_time = time.time()
+tracemalloc.start()
 a_star_path = a_star(grid, start, goal)
-print(a_star_path)
+a_star_end_time = time.time()
+A_current, A_peak = tracemalloc.get_traced_memory()
+print("A* Path : ", a_star_path)
+print(f"A* Execution Time: {a_star_end_time - a_star_start_time} seconds")
+print(f"A* Peak memory usage: {A_peak / 10 ** 6} MB")
 visualize_path(grid, a_star_path, start, goal, "A Star")
 
+
+#greedy
+greedy_start_time = time.time()
+tracemalloc.start()
 greedy_path = greedy_best_search(grid, start, goal)
-print(greedy_path)
+greedy_end_time = time.time()
+greedy_current, greedy_peak = tracemalloc.get_traced_memory()
+print("Greedy Path: ",greedy_path)
+print(f"Greedy Execution Time: {greedy_end_time - greedy_start_time} seconds")
+print(f"Greedy Peak memory usage: {greedy_peak / 10 ** 6} MB")
 visualize_path(grid, greedy_path, start, goal, "Greedy Best First")
 
 
+#BFS
+bfs_start_time = time.time()
+tracemalloc.start()
+bfs_end_time = time.time()
+bfs_current, bfs_peak = tracemalloc.get_traced_memory()
 bfs = breadth_first_search(grid)
-print(bfs)
+print("BFS Path : ",bfs)
+print(f"BFS Execution Time: {bfs_end_time - bfs_start_time} seconds")
+print(f"BFS Peak memory usage: {bfs_peak / 10 ** 6} MB")
 visualize_path(grid, bfs, start, goal, "Breadth First")
 
+
+#Simulated Annealing
 start_time = time.time()
 tracemalloc.start()
 path = simulated_annealing(grid, start, goal, 1000, 0.99, 1000)
 end_time = time.time()
 current, peak = tracemalloc.get_traced_memory()
-print(f"Execution Time: {end_time - start_time} seconds")
-print(f"Peak memory usage: {peak / 10 ** 6} MB")
-if path:
-    visualize_path(grid, path, start, goal, "Simulated Annealing")
+print(f"Simulated Annealing Execution Time: {end_time - start_time} seconds")
+print(f"Simulated Annealing Peak memory usage: {peak / 10 ** 6} MB")
+visualize_path(grid, path, start, goal, "Simulated Annealing")

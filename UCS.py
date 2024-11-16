@@ -1,5 +1,7 @@
 import heapq
 
+from Reconstruct_path import reconstruct_path
+
 def uniform_cost_search(grid, start_position, goal_position):
     # Priority queue for nodes to explore, storing (cumulative_cost, node_position)
     priority_queue = []
@@ -35,10 +37,3 @@ def uniform_cost_search(grid, start_position, goal_position):
     return None
 
 
-def reconstruct_path(came_from, current_position):
-    path = []
-    while current_position is not None:
-        path.append(current_position)
-        current_position = came_from[current_position]
-    path.reverse()
-    return path

@@ -1,7 +1,7 @@
 import sys
 from collections import deque
 from random import randint, choice
-from grid import grid_init,create_obstacle,path_cost
+from grid import grid_init, create_obstacle, path_cost, Node
 
 
 def depth_limited_search(problem, limit=50):

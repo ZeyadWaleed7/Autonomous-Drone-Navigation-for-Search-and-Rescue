@@ -2,13 +2,14 @@ import time
 import tracemalloc
 from A_Star import a_star
 from simulated_Annealing import simulated_annealing
-from GreedyBestFirstSearch import column, greedy_best_search
+
+from GreedyBestFirstSearch import greedy_best_search
 from grid import grid_init, create_obstacle, path_cost
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
 
-def visualize_path(grid, path, start, goal):
+def visualize_path(grid, path, start, goal,title):
     # Determine grid dimensions
     max_row = max(key[0] for key in grid) + 1
     max_col = max(key[1] for key in grid) + 1
@@ -43,7 +44,7 @@ def visualize_path(grid, path, start, goal):
         ticks=[0.5, 1.5, 2.5, 3.5, 4.5, 5.5],
         format=plt.FuncFormatter(lambda val, loc: ['Highway', 'Narrow Way', 'Obstacle', 'Path', 'Start', 'Goal'][int(val)])
     )
-    plt.title("Path Visualization")
+    plt.title(title)
     plt.show()
 
 
@@ -60,11 +61,11 @@ def main():
 
     a_star_path = a_star(grid, start, goal)
     print(a_star_path)
-    visualize_path(grid, a_star_path, start, goal)
+    visualize_path(grid, a_star_path, start, goal,"A Star")
 
     greedy_path = greedy_best_search(grid,start, goal)
     print(greedy_path)
-    visualize_path(grid , greedy_path ,start,goal)
+    visualize_path(grid , greedy_path ,start,goal,"Greedy Best First")
 
 
     start_time = time.time()
@@ -75,7 +76,7 @@ def main():
     print(f"Execution Time: {end_time - start_time} seconds")
     print(f"Peak memory usage: {peak / 10**6} MB")
     if path:
-        visualize_path(grid, path, start, goal)
+        visualize_path(grid, path, start, goal,"Simulated Annealing")
         
 if __name__ == "__main__":
     main()

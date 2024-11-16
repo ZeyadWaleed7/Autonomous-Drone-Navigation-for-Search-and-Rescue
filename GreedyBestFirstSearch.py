@@ -24,17 +24,3 @@ def greedy_best_search(grid, start, goal):
                 if child.position not in path:
                     path[child.position] = current_node.position
     return None
-# Test the greedy best search algorithm
-row, column = 50, 50
-grid, start_position, goal_position = grid_init(row, column)  # Initialize the grid with nodes
-grid = create_obstacle(grid, row, column)  # Create obstacles on the grid
-grid = path_cost(grid, row, column)  # Optionally adjust path costs
-
-# Run greedy best search
-path = greedy_best_search(grid, start_position, goal_position)
-if path:
-    print("Path found:", path)
-else:
-    print("No path found.")
-
-

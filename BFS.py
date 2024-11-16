@@ -1,6 +1,6 @@
 from collections import deque
+from Reconstruct_path import rec_path
 
-from Reconstruct_path import reconstruct_path
 
 def breadth_first_search(grid):
     start_node = [node for node in grid.values() if node.start][0]
@@ -14,7 +14,8 @@ def breadth_first_search(grid):
 
         # Check if we've reached the goal
         if current_node.goal:
-            return path.__reversed__()
+            return rec_path(path,current_node)
+
         # Visit all passable, unvisited neighbors
         for neighbor in current_node.children:
             if neighbor.passable and neighbor.position not in visited:

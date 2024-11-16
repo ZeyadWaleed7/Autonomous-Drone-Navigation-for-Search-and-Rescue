@@ -9,6 +9,7 @@ from BFS import breadth_first_search
 from GreedyBestFirstSearch import greedy_best_search
 from grid import path_cost, create_obstacle, grid_init
 from simulated_Annealing import simulated_annealing
+from genatic import genetic_algorithm
 import time
 
 
@@ -108,3 +109,13 @@ current, peak = tracemalloc.get_traced_memory()
 print(f"Simulated Annealing Execution Time: {end_time - start_time} seconds")
 print(f"Simulated Annealing Peak memory usage: {peak / 10 ** 6} MB")
 visualize_path(grid, path, start, goal, "Simulated Annealing")
+
+#Genatic
+start_time = time.time()
+tracemalloc.start()
+path = genetic_algorithm(grid, start, goal, population_size = 100,generations=200,max_path_length=150,mutation_rate=0.2)
+end_time = time.time()
+current, peak = tracemalloc.get_traced_memory()
+print(f"Genatic Execution Time: {end_time - start_time} seconds")
+print(f"Genatic memory usage: {peak / 10 ** 6} MB")
+visualize_path(grid, path, start, goal, "Genatic")

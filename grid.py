@@ -25,14 +25,12 @@ class Node:
 
 
 def grid_init(row, column):
-    # Step 1: Create nodes for each cell and store in a dictionary
     grid = {}
 
     for x in range(row):
         for y in range(column):
             grid[(x, y)] = Node((x, y))
 
-    # Step 2: Connect nodes to their valid neighbors
     for x in range(row):
         for y in range(column):
             current_node = grid[(x, y)]
@@ -56,7 +54,6 @@ def grid_init(row, column):
                         if neighbor_node and neighbor_node.passable:
                             current_node.children.append(neighbor_node)
 
-    # Step 3: Define start and goal positions
     start_position = (randint(0, row - 1), randint(0, column - 1))
     goal_position = (randint(0, row - 1), randint(0, column - 1))
 

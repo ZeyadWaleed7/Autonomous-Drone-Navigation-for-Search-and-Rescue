@@ -12,11 +12,11 @@ def breadth_first_search(grid):
     while queue:
         current_node = queue.popleft()
 
-        # Check if we've reached the goal
+        # Check if the current node is the goal
         if current_node.goal:
-            return rec_path(path,current_node)
+            return rec_path(path, current_node)  # return the path
 
-        # Visit all passable, unvisited neighbors
+        # Visit all passable and unvisited nodes
         for neighbor in current_node.children:
             if neighbor.passable and neighbor.position not in visited:
                 queue.append(neighbor)

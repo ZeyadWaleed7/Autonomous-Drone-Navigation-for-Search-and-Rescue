@@ -1,5 +1,4 @@
 from heuristic_function import heuristic_function 
-from grid import grid_init, create_obstacle, path_cost, reconstruct_path
 def hill_climbing(grid, start_position, goal_position):
     
     current = grid[start_position]

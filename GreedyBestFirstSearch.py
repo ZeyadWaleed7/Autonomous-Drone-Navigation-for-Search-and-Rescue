@@ -19,8 +19,10 @@ def greedy_best_search(grid, start, goal):
         visited.add(current_node.position)  # Mark current node as visited
 
         for child in current_node.children:
+            # go to the node if possible and not visited
             if child.position not in visited and child.passable:
                 heappush(priority_queue, (heuristic_function(child.position, grid[goal].position), child.position))
+                #if it has not added to path add it
                 if child.position not in path:
                     path[child.position] = current_node.position
     return None

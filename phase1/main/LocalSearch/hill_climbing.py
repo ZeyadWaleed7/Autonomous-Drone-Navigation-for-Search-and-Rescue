@@ -1,4 +1,4 @@
-from heuristic_function import heuristic_function 
+from phase1.main.Heuristics.heuristic_function import heuristic_function
 def hill_climbing(grid, start_position, goal_position):
     
     current = grid[start_position]

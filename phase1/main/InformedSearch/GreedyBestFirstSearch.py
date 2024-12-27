@@ -1,7 +1,7 @@
 from heapq import heappush, heappop
-from grid import grid_init, create_obstacle, path_cost, reconstruct_path
+from Problem.grid import reconstruct_path
 
-from heuristic_function import heuristic_function
+from phase1.main.Heuristics.heuristic_function import heuristic_function
 
 
 def greedy_best_search(grid, start, goal):

@@ -1,6 +1,5 @@
-from heuristic_function import heuristic_function  # Import the specific function
-from grid import grid_init, create_obstacle, path_cost, reconstruct_path
-from random import randint, choice, uniform
+from phase1.main.Heuristics.heuristic_function import heuristic_function  # Import the specific function
+from random import choice, uniform
 import math
 
 

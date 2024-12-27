@@ -3,16 +3,16 @@ import tracemalloc
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
-from hill_climbing import hill_climbing
-from A_Star import a_star
-from BFS import breadth_first_search
-from DFS import depth_first_search
-from UCS import uniform_cost_search
-from IDS import iterative_deepening_search
-from GreedyBestFirstSearch import greedy_best_search
-from grid import path_cost, create_obstacle, grid_init
-from simulated_Annealing import simulated_annealing
-from genatic import genetic_algorithm
+from phase1.main.LocalSearch.hill_climbing import hill_climbing
+from phase1.main.InformedSearch.A_Star import a_star
+from phase1.main.UninformedSearch.BFS import breadth_first_search
+from phase1.main.UninformedSearch.DFS import depth_first_search
+from phase1.main.UninformedSearch.UCS import uniform_cost_search
+from phase1.main.UninformedSearch.IDS import iterative_deepening_search
+from phase1.main.InformedSearch.GreedyBestFirstSearch import greedy_best_search
+from Problem.grid import path_cost, create_obstacle, grid_init
+from phase1.main.LocalSearch.simulated_Annealing import simulated_annealing
+from phase1.main.LocalSearch.genatic import genetic_algorithm
 import time
 
 

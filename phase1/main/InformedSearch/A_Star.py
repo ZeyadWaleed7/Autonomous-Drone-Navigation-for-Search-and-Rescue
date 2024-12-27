@@ -1,7 +1,7 @@
 from heapq import heappush, heappop  # Used for managing the priority queue efficiently
 
-from grid import reconstruct_path  # Function to rebuild the path from start to goal
-from heuristic_function import heuristic_function  # Function to calculate the heuristic (estimated cost)
+from Problem.grid import reconstruct_path  # Function to rebuild the path from start to goal
+from phase1.main.Heuristics.heuristic_function import heuristic_function  # Function to calculate the heuristic (estimated cost)
 
 # A* pathfinding algorithm implementation
 def a_star(grid, start, goal):

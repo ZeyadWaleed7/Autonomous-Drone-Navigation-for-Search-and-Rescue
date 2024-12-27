@@ -1,5 +1,5 @@
 import random
-from grid import grid_init, create_obstacle, path_cost
+from Problem.grid import grid_init, create_obstacle, path_cost
 
 
 def generate_random_grid():

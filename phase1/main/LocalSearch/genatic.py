@@ -1,6 +1,7 @@
-from random import randint, random, choice, sample
-from heuristic_function import heuristic_function
-from grid import grid_init, create_obstacle, path_cost
+from random import randint, random, choice
+from phase1.main.Heuristics.heuristic_function import heuristic_function
+from Problem.grid import grid_init, create_obstacle, path_cost
+
 
 def initialize_population(grid, start_position, goal_position, population_size, max_path_length):
     population = []

@@ -1,5 +1,5 @@
 from collections import deque
-from Reconstruct_path import rec_path
+from Problem.Reconstruct_path import rec_path
 
 
 def depth_first_search(grid):

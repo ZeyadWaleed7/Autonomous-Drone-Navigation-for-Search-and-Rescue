@@ -52,7 +52,7 @@ def train_q_learning(grid, row, column, episodes=1000, alpha=0.1, gamma=0.9, eps
             if is_valid_move(grid, state, action, row, column):
                 # Calculate new state index and reward
                 new_state = (state[0] + ACTIONS[action][0], state[1] + ACTIONS[action][1])
-                reward = reward_function(new_state, goal, action)
+                reward = reward_function(grid, state, action)
                 new_state_index = new_state[0] * column + new_state[1]
 
                 # Q-learning update

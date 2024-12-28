@@ -1,4 +1,4 @@
-from Problem.grid import grid_init, create_obstacle
+from Problem.grid import grid_init, create_obstacle, path_cost
 from phase2.main.ReinforcementLearning.q_learning import train_q_learning
 from phase1.main.InformedSearch.A_Star import a_star
 from phase2.main.Visualization.visualization import visualize_path
@@ -9,7 +9,7 @@ import tracemalloc
 row, column = 5, 5
 grid, start, goal = grid_init(row, column)
 grid = create_obstacle(grid, row, column)
-
+grid = path_cost(grid, row, column)
 
 # qlearning
 qlearning_start_time = time.time()

@@ -23,4 +23,4 @@ def reward_function(state, goal_position):
 # state: The current position of the agent in the grid, represented as (x, y).
 def is_valid_move(grid, state, action, row, column):
     new_x, new_y = state[0] + ACTIONS[action][0], state[1] + ACTIONS[action][1]
-    return (0 <= new_x < row and 0 <= new_y < column and grid[(new_x, new_y)].passable)
+    return 0 <= new_x < row and 0 <= new_y < column and grid[(new_x, new_y)].passable

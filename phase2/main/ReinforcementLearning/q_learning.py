@@ -1,6 +1,8 @@
 import numpy as np
 from random import random, choice
-from phase2.main.ReinforcementLearning.actins_reward import ACTIONS, reward_function, is_valid_move
+from phase2.main.ReinforcementLearning.actions_reward import ACTIONS, reward_function, is_valid_move
+from phase2.main.Visualization.visualization import visualize_policy, visualize_Qtable, visualize_movements, \
+    visualize_progress
 
 
 def train_q_learning(grid, row, column, episodes=1000, alpha=0.1, gamma=0.9, epsilon=1.0,
@@ -34,6 +36,7 @@ def train_q_learning(grid, row, column, episodes=1000, alpha=0.1, gamma=0.9, eps
         state = start  # Start state
         total_reward = 0  # Initialize total reward for the episode
         episode_completed = False  # Episode completion flag
+        movements = []  # To track the agent's movement patterns
 
         while not episode_completed:
             state_index = state[0] * column + state[1]  # Convert 2D state to 1D index
@@ -56,6 +59,7 @@ def train_q_learning(grid, row, column, episodes=1000, alpha=0.1, gamma=0.9, eps
                         reward + gamma * np.max(q_table[new_state_index]) - q_table[state_index, action]
                 )
 
+                movements.append(new_state)  # Track movements
                 state = new_state  # Update state
                 total_reward += reward  # Update total reward
 
@@ -74,43 +78,12 @@ def train_q_learning(grid, row, column, episodes=1000, alpha=0.1, gamma=0.9, eps
         # Decay epsilon
         epsilon = max(0.1, epsilon * epsilon_decay)
 
-        # Log progress every 100 episodes
-        if (episode + 1) % 100 == 0:
-            print(f"Episode {episode + 1}: Total Reward: {total_reward}")
-            # visualize_policy(grid, q_table, row, column)
+        visualize_progress(episode, total_reward)  # Log progress every 100 episodes
+
+        visualize_Qtable(q_table, episode, episodes)  # Visualize Q-table at specific episodes (midway and final)
+
+        visualize_movements(movements, episode, episodes)  # Visualize the agent's movements at the final episode
+
+    visualize_policy(grid, q_table, row, column)  # Visualize the learned policy after training
 
     return q_table  # Return the trained Q-table
-
-
-def visualize_policy(grid, q_table, row, column):
-    policy = np.full((row, column), ' ')
-
-    start_position = [node.position for node in grid.values() if node.start][0]
-    goal_position = [node.position for node in grid.values() if node.goal][0]
-
-    policy[start_position] = 'S'
-    policy[goal_position] = 'G'
-
-    for x in range(row):
-        for y in range(column):
-            state_index = x * column + y
-
-            best_action = np.argmax(q_table[state_index])
-            direction = list(ACTIONS.values())[best_action]
-            if direction == (-1, 0):
-                policy[x, y] = '↑'
-            elif direction == (1, 0):
-                policy[x, y] = '↓'
-            elif direction == (0, -1):
-                policy[x, y] = '←'
-            elif direction == (0, 1):
-                policy[x, y] = '→'
-
-            # print("Learned Policy 1:")
-            # print(policy)
-
-        # print("Learned Policy 2:")
-        # print(policy)
-
-    print("───────── Learned Policy ─────────")
-    print(policy)

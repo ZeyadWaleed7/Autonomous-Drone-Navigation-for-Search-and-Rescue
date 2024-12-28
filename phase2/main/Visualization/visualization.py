@@ -32,6 +32,14 @@ def visualize_policy(grid, q_table, row, column):
                 policy[x, y] = '←'
             elif direction == (0, 1):
                 policy[x, y] = '→'
+            elif direction == (-1, -1):
+                policy[x, y] = '↖'  # up-left
+            elif direction == (-1, 1):
+                policy[x, y] = '↗'  # up-right
+            elif direction == (1, -1):
+                policy[x, y] = '↙'  # down-left
+            elif direction == (1, 1):
+                policy[x, y] = '↘'  # down-right
 
             # print("Learned Policy 1:")
             # print(policy)
@@ -69,9 +77,10 @@ def visualize_movements(movements, episode, episodes):
     """
         Visualize the agent's movements.
     """
-    print("Final Movement Patterns:")
-    print("───────── Agent Movements ─────────")
+
     if episode == episodes - 1:
+        print("Final Movement Patterns:")
+        print("───────── Agent Movements ─────────")
         print(movements, "\n\n\n")
 
 
@@ -80,7 +89,7 @@ def visualize_progress(episode, total_reward):
     Visualize the progress of the training.
     """
     if (episode + 1) % 100 == 0:
-        print(f"Episode {episode + 1}: Total Reward: {total_reward}", "\n\n\n")
+        print(f"Episode {episode + 1}: Total Reward: {total_reward}")
 
 
 def visualize_path(grid, path, start, goal, title):

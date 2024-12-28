@@ -12,7 +12,6 @@ ACTIONS = {
     7: (1, 1)     # Down-right
 }
 
-
 def reward_function(grid, current_position, action):
     # Calculate the new position based on the action
     new_x, new_y = current_position[0] + ACTIONS[action][0], current_position[1] + ACTIONS[action][1]
@@ -28,7 +27,9 @@ def reward_function(grid, current_position, action):
     if next_node.cost == 1:  # Highway
         return 10  # Higher reward for low-cost roads
     elif next_node.cost == 2:  # Narrow way
-        return 1   # Lower reward for higher-cost roads
+        return 5   # Lower reward for higher-cost roads
+
+
 
 
 # grid: A dictionary representing the grid, where the keys are coordinates (x, y) and values are Node objects.
@@ -46,3 +47,4 @@ def is_valid_move(grid, state, action, row, column):
 
     # Check if the node is passable
     return next_node.passable
+

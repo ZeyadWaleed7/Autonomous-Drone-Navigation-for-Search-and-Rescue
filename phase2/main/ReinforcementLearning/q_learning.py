@@ -31,12 +31,13 @@ def train_q_learning(grid, row, column, episodes=1000, alpha=0.1, gamma=0.9, eps
     goal = [node.position for node in grid.values() if node.goal][0]
 
     q_table = np.zeros((row * column, len(ACTIONS)))  # Initialize Q-table with zeros
+    path = []  # To store movements of the last episode and return it
 
     for episode in range(episodes):
         state = start  # Start state
         total_reward = 0  # Initialize total reward for the episode
         episode_completed = False  # Episode completion flag
-        movements = []  # To track the agent's movement patterns
+        movements = [state]  # To track the agent's movement patterns
 
         while not episode_completed:
             state_index = state[0] * column + state[1]  # Convert 2D state to 1D index
@@ -77,6 +78,7 @@ def train_q_learning(grid, row, column, episodes=1000, alpha=0.1, gamma=0.9, eps
 
         # Decay epsilon
         epsilon = max(0.1, epsilon * epsilon_decay)
+        path = movements
 
         visualize_progress(episode, total_reward)  # Log progress every 100 episodes
 
@@ -86,4 +88,4 @@ def train_q_learning(grid, row, column, episodes=1000, alpha=0.1, gamma=0.9, eps
 
     visualize_policy(grid, q_table, row, column)  # Visualize the learned policy after training
 
-    return q_table  # Return the trained Q-table
+    return q_table, path  # Return the trained Q-table and final path

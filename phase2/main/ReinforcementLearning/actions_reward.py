@@ -19,15 +19,13 @@ def reward_function(grid, current_position, action):
     # Access the next node
     next_node = grid[(new_x, new_y)]
 
-    # Case 2: Check if the move reaches the goal
     if next_node.goal:
         return 100  # Large positive reward for reaching the goal
 
-    # Case 3: Assign rewards based on road cost
     if next_node.cost == 1:  # Highway
-        return 10  # Higher reward for low-cost roads
+        return -1
     elif next_node.cost == 2:  # Narrow way
-        return 5   # Lower reward for higher-cost roads
+        return -2
 
 
 

@@ -12,6 +12,7 @@ ACTIONS = {
     7: (1, 1)     # Down-right
 }
 
+
 def reward_function(grid, current_position, action):
     # Calculate the new position based on the action
     new_x, new_y = current_position[0] + ACTIONS[action][0], current_position[1] + ACTIONS[action][1]
@@ -26,8 +27,6 @@ def reward_function(grid, current_position, action):
         return -1
     elif next_node.cost == 2:  # Narrow way
         return -2
-
-
 
 
 # grid: A dictionary representing the grid, where the keys are coordinates (x, y) and values are Node objects.
